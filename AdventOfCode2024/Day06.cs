@@ -115,14 +115,15 @@ public class Day06
         }
 
         Foo:
-        foreach (var point in Points)
-        {
-            Console.WriteLine(point.x + ", " + point.y);
-        }
+        // foreach (var point in Points)
+        // {
+        //     Console.WriteLine(point.x + ", " + point.y);
+        // }
 
-        Console.WriteLine(Points.Count);
+        // Console.WriteLine(Points.Count);
 
-        for (int i = 0; i < Points.Count; i++)
+        List<(int x, int y)> found = [];
+        for (int i = 1; i < Points.Count; i++)
         {
             for (int j = 1; j <= Points.Count / 4; j++)
             {
@@ -137,14 +138,14 @@ public class Day06
                 {
                     if (Between(Points[i].x, Points[i + length].x, Points[i + length - 1].x))
                     {
-                        Console.WriteLine($"i: {i}, length: {length}, Found x {Points[i].x}, {Points[i + length].y}");
+                        found.Add((Points[i].x, Points[i + length].y));
                     }
                 }
                 else
                 {
                     if (Between(Points[i].y, Points[i + length].y, Points[i + length - 1].y))
                     {
-                        Console.WriteLine($"i: {i}, length: {length}, Found y {Points[i].x}, {Points[i + length].y}");
+                        found.Add((Points[i + length].x, Points[i].y));
                     }
                 }
             }
@@ -170,6 +171,13 @@ public class Day06
         //     //     
         //     // }
         // }
+
+        foreach (var f in found)
+        {
+            Console.WriteLine(f.x + "," + f.y);
+        }
+        
+        Console.WriteLine(found.Count);
     }
 
     private bool Between(int value, int a, int b)
